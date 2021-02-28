@@ -20,6 +20,8 @@ export default function UserContextComp({ children }) {
         } else setUser(null);
       } catch (error) {
         // Most probably a connection error. Handle appropriately.
+        setUser(null);
+        console.log("There was an error finding user.");
       } finally {
         setLoadingUser(false);
       }
