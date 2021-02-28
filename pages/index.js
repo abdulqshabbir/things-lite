@@ -9,14 +9,6 @@ export default function Home() {
   const { loadingUser, user } = useUser();
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("change to user or loadingUser");
-    if (user === null) {
-      router.push("/signup");
-    }
-    return () => {};
-  }, [user, loadingUser]);
-
   function handleLogout() {
     firebase.auth().signOut();
   }
