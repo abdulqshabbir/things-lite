@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useUser } from "../context/userContext";
 import firebase from "../firebase/clientApp";
+// small comment
 
 export default function Home() {
   // Our custom hook to get context values
