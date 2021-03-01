@@ -1,9 +1,9 @@
 import Link from "next/link";
-import dbConnect from "../database/dbConnect";
-import firebase from "../firebase/clientApp";
-import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useUser } from "../context/userContext";
+import dbConnect from "../database/dbConnect";
+import firebase from "../firebase/clientApp";
 import Todo from "../models/Todo";
 
 export default function Home({ todos }) {
@@ -39,7 +39,9 @@ export default function Home({ todos }) {
         <button onClick={addTodoToDatabase}></button>
       </main>
       {todos.map((t) => (
-        <li>{todo.text}</li>
+        <li key={t._id} id={t._id}>
+          {t.title}
+        </li>
       ))}
       <button onClick={handleLogout}>logout</button>
     </div>
@@ -49,10 +51,11 @@ export default function Home({ todos }) {
 export async function getServerSideProps() {
   await dbConnect();
 
-  // find all todos in database
-  const docs = await Todo.find({});
+  // find all todos and turn them to plain javascript obejcts
+  const todoDocs = await Todo.find({});
 
-  const todos = docs.map((doc) => {
+  const todos = todoDocs.map((doc) => {
+    // convert to serializable object
     const todo = doc.toObject();
     todo._id = todo._id.toString();
     return todo;
