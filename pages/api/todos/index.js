@@ -5,15 +5,6 @@ dbConnect();
 
 export default async (req, res) => {
   const method = req.method;
-  const options = {
-    // Return the document after updates are applied
-    new: true,
-    // Create a document if one isn't found. Required
-    // for `setDefaultsOnInsert`
-    upsert: true,
-    setDefaultsOnInsert: true,
-  };
-
   switch (method) {
     case "GET":
       try {
