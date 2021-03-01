@@ -1,10 +1,12 @@
 import Link from "next/link";
+import dbConnect from "../database/dbConnect";
 import firebase from "../firebase/clientApp";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Todo from "../models/Todo";
 
-export default function Home() {
+export default function Home({ todos }) {
   // Our custom hook to get context values
   const { loadingUser, user } = useUser();
   const router = useRouter();
@@ -36,7 +38,29 @@ export default function Home() {
         />
         <button onClick={addTodoToDatabase}></button>
       </main>
+      {todos.map((t) => (
+        <li>{todo.text}</li>
+      ))}
       <button onClick={handleLogout}>logout</button>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  await dbConnect();
+
+  // find all todos in database
+  const docs = await Todo.find({});
+
+  const todos = docs.map((doc) => {
+    const todo = doc.toObject();
+    todo._id = todo._id.toString();
+    return todo;
+  });
+
+  return {
+    props: {
+      todos,
+    },
+  };
 }
