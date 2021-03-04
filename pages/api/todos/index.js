@@ -15,7 +15,7 @@ export default async (req, res) => {
       }
     case "POST":
       try {
-        const newTodo = await Todo.create([req.body], options);
+        const newTodo = await Todo.create(req.body);
         return res.status(200).json({ success: true, data: newTodo });
       } catch (e) {
         return res.status(400).json({ success: false });
