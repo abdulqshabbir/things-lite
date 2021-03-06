@@ -1,6 +1,7 @@
 import fetch from "isomorphic-fetch";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Navbar from "../../components/Navbar";
 
 export default function Home({ notes }) {
   const [newTodo, setNewTodo] = useState("");
@@ -41,6 +42,7 @@ export default function Home({ notes }) {
   } else {
     return (
       <>
+        <Navbar />
         <div>
           {notes.data.map((n) => (
             <li key={n._id}>{n.title}</li>
