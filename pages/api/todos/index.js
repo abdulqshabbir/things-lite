@@ -9,16 +9,22 @@ export default async (req, res) => {
     case "GET":
       try {
         const todos = await Todo.find({});
-        return res.status(200).json({ success: true, data: todos });
+        res.status(200).json({ success: true, data: todos });
       } catch (e) {
-        return res.status(400).json({ success: false });
+        res
+          .status(400)
+          .json({ success: false, message: "Could not find todos..." });
       }
+      break;
     case "POST":
       try {
         const newTodo = await Todo.create(req.body);
-        return res.status(200).json({ success: true, data: newTodo });
+        res.status(200).json({ success: true, data: newTodo });
       } catch (e) {
-        return res.status(400).json({ success: false });
+        res
+          .status(400)
+          .json({ success: false, message: "Could not create todo..." });
       }
+      break;
   }
 };
