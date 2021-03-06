@@ -1,5 +1,7 @@
 export default function Todo({ todo }) {
-  console.log(todo);
+  if (!todo.success) {
+    return <p>Sorry we could not find the todo you were looking for.</p>;
+  }
   return (
     <div>
       <p>Todo id: {todo.data.title}</p>
