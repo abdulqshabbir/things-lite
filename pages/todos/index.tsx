@@ -1,14 +1,25 @@
 import fetch from "isomorphic-fetch";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "../../components/Navbar";
 
-export default function Home({ notes }) {
+import { SyntheticEvent } from 'react'
+import { ITodo } from '../../models/Todo'
+
+interface IProps {
+  todosResponse: {
+    data: ITodo[] | null,
+    message: string | null,
+    success: boolean
+  }
+}
+
+export default function Home({ todosResponse }: IProps) {
   const [newTodo, setNewTodo] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  async function createNewTodo(e) {
+  async function createNewTodo(e: SyntheticEvent) {
     e.preventDefault();
     setNewTodo("");
     setIsSubmitting(true);
@@ -26,10 +37,10 @@ export default function Home({ notes }) {
     router.push("/todos");
   }
 
-  if (!notes.success) {
+  if (!todosResponse.success || !todosResponse.data) {
     return (
       <div>
-        <p>Something went wrong with fetching the notes...</p>
+        <p>Something went wrong with fetching the todos...</p>
         <input
           type="text"
           placeholder="Type new todo here..."
@@ -44,8 +55,8 @@ export default function Home({ notes }) {
       <>
         <Navbar />
         <div>
-          {notes.data.map((n) => (
-            <li key={n._id}>{n.title}</li>
+          {todosResponse.data.map((todo: ITodo) => (
+            <li key={todo._id}>{todo.title}</li>
           ))}
         </div>
         <div>
@@ -65,10 +76,10 @@ export default function Home({ notes }) {
 
 export async function getServerSideProps() {
   const res = await fetch(`http://localhost:3000/api/todos`);
-  const notes = await res.json();
+  const todos = await res.json();
   return {
     props: {
-      notes: notes,
+      todosResponse: todos,
     },
   };
 }

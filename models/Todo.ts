@@ -1,4 +1,11 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
+
+export interface ITodo extends Document {
+  title: string,
+  text?: string,
+  dueDate?: string,
+  priority?: string,
+}
 
 const todoSchema = new mongoose.Schema({
   title: {
@@ -15,10 +22,7 @@ const todoSchema = new mongoose.Schema({
   priority: {
     type: String,
   },
-  checklist: {
-    type: Array,
-  },
 });
 
 // if Todo model already exists, do not overwrite it and just return
-export default mongoose.models.Todo || mongoose.model("Todo", todoSchema);
+export default mongoose.models.Todo || mongoose.model<ITodo>("Todo", todoSchema);
