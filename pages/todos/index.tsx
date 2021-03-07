@@ -5,6 +5,9 @@ import Navbar from "../../components/Navbar";
 
 import { SyntheticEvent } from 'react'
 import { ITodo } from '../../models/Todo'
+import NavbarBrand from "../../components/NavbarBrand";
+import HamburgerWrapper from '../../components/HamburgerWrapper'
+import HamburgerMenu from '../../components/HamburgerMenu';
 
 interface IProps {
   todosResponse: {
@@ -53,7 +56,12 @@ export default function Home({ todosResponse }: IProps) {
   } else {
     return (
       <>
-        <Navbar />
+        <Navbar>
+          <NavbarBrand>Things Lite</NavbarBrand>
+          <HamburgerWrapper>
+            <HamburgerMenu></HamburgerMenu>
+          </HamburgerWrapper>
+        </Navbar>
         <div>
           {todosResponse.data.map((todo: ITodo) => (
             <li key={todo._id}>{todo.title}</li>

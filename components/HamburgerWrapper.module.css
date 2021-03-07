@@ -1,0 +1,9 @@
+.hamburgerWrapper {
+  height: 50px;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+}
