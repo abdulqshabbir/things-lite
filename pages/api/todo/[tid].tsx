@@ -1,6 +1,7 @@
 import Todo from "../../../models/Todo";
+import { NextApiResponse, NextApiRequest } from 'next'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const todoId = req.query.tid;
   const method = req.method;
 
@@ -12,6 +13,7 @@ export default async function handler(req, res) {
           res.status(400).json({
             success: false,
             message: "The todo with that id does not exist.",
+            data: null
           });
         } else {
           res.status(400).json({
@@ -23,7 +25,11 @@ export default async function handler(req, res) {
         console.log(e);
         res
           .status(400)
-          .json({ success: false, message: "Something went wrong..." });
+          .json({ 
+            success: false,
+            data: null,
+            message: "Something went wrong..."
+          });
       }
       break;
   }

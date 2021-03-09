@@ -8,6 +8,9 @@ import { ITodo } from '../../models/Todo'
 import NavbarBrand from "../../components/NavbarBrand";
 import HamburgerWrapper from '../../components/HamburgerWrapper'
 import HamburgerMenu from '../../components/HamburgerMenu';
+import NavigationWrapper from "../../components/NavigationWrapper";
+import NavigationLink from "../../components/NavigationLink";
+import Link from 'next/link'
 
 interface IProps {
   todosResponse: {
@@ -62,6 +65,25 @@ export default function Home({ todosResponse }: IProps) {
             <HamburgerMenu></HamburgerMenu>
           </HamburgerWrapper>
         </Navbar>
+        <NavigationWrapper>
+          <NavigationLink>
+            <Link href="/">
+                Hello
+            </Link>
+          </NavigationLink>
+          <NavigationLink>
+            <Link href="/inbox">Today</Link>
+          </NavigationLink>
+          <NavigationLink>
+            <Link href="/upcoming">Upcoming</Link>
+          </NavigationLink>
+          <NavigationLink>
+            <Link href="/anytime">Anytime</Link>
+          </NavigationLink>
+          <NavigationLink>
+            <Link href="/trash">Trash</Link>
+          </NavigationLink>
+        </NavigationWrapper>
         <div>
           {todosResponse.data.map((todo: ITodo) => (
             <li key={todo._id}>{todo.title}</li>
