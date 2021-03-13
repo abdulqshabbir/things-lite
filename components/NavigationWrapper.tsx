@@ -1,14 +1,11 @@
-import styled from 'styled-components'
+import styles from './NavigationWrapper.module.css'
+import { useNavigation } from '../context/navigationContext'
 
 const NavigationWrapper = ({className, children}: any) => {
-  return <div className={className}>{children}</div>
+  const { isActive } = useNavigation()
+  const classes = `${isActive ? styles.active : styles.inactive}`
+
+  return <div className={classes}>{children}</div>
 }
 
-export default styled(NavigationWrapper)`
-  background-color: ${props => props.theme.secondaryLight};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 5px;
-`
+export default NavigationWrapper

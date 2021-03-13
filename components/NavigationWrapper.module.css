@@ -1,0 +1,12 @@
+.active {
+  display: none;
+}
+
+.inactive {
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5px;
+}

@@ -1,15 +1,12 @@
-import { useState } from "react";
+import { useNavigation } from '../context/navigationContext'
 import styles from './HamburgerWrapper.module.css'
 
 const HamburgerWrapper = ({children}: any) => {
-  const [isActive, setIsActive] = useState(false)
-  function activateHamburgerMenu() {
-    setIsActive(true)
-  }
+  const navigation = useNavigation()
   return (
     <div
       className={`${styles.hamburgerWrapper}`}
-      onClick={activateHamburgerMenu}>
+      onClick={navigation.toggleActive}>
         {children}
     </div>
   )

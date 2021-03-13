@@ -11,6 +11,7 @@ import HamburgerWrapper from '../../components/HamburgerWrapper'
 import HamburgerMenu from '../../components/HamburgerMenu';
 import NavigationWrapper from "../../components/NavigationWrapper";
 import NavigationLink from "../../components/NavigationLink";
+import NavigationContextProvider from '../../context/navigationContext';
 // typescript imports
 import { ITodo } from '../../models/Todo'
 
@@ -61,54 +62,56 @@ export default function Home({ todosResponse }: IProps) {
   } else {
     return (
       <>
-        <Navbar>
-          <NavbarBrand>Things Lite</NavbarBrand>
-          <HamburgerWrapper>
-            <HamburgerMenu></HamburgerMenu>
-          </HamburgerWrapper>
-        </Navbar>
-        <NavigationWrapper>
-            <Link href="/" passHref>
-              <NavigationLink>
-                Hello
-              </NavigationLink>
-            </Link>
-            <Link href="/inbox">
-              <NavigationLink>
-                Inbox
-              </NavigationLink>
-            </Link>
-            <Link href="/upcoming">
-              <NavigationLink>
-                Upcoming
-              </NavigationLink>
-            </Link>
-            <Link href="/anytime">
-              <NavigationLink>
-                Anytime
-              </NavigationLink>
-            </Link>
-            <Link href="/trash">
-              <NavigationLink>
-                Trash
-              </NavigationLink>
-            </Link>
-        </NavigationWrapper>
-        <div>
-          {todosResponse.data.map((todo: ITodo) => (
-            <li key={todo._id}>{todo.title}</li>
-          ))}
-        </div>
-        <div>
-          {isSubmitting ? "Loading" : null}
-          <input
-            type="text"
-            placeholder="Type new todo here..."
-            value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
-          />
-          <button onClick={(e) => createNewTodo(e)}>Create New Todo</button>
-        </div>
+        <NavigationContextProvider>
+          <Navbar>
+            <NavbarBrand>Things Lite</NavbarBrand>
+            <HamburgerWrapper>
+              <HamburgerMenu></HamburgerMenu>
+            </HamburgerWrapper>
+          </Navbar>
+          <NavigationWrapper>
+              <Link href="/" passHref>
+                <NavigationLink>
+                  Hello
+                </NavigationLink>
+              </Link>
+              <Link href="/inbox" passHref>
+                <NavigationLink>
+                  Inbox
+                </NavigationLink>
+              </Link>
+              <Link href="/upcoming" passHref>
+                <NavigationLink>
+                  Upcoming
+                </NavigationLink>
+              </Link>
+              <Link href="/anytime" passHref>
+                <NavigationLink>
+                  Anytime
+                </NavigationLink>
+              </Link>
+              <Link href="/trash" passHref>
+                <NavigationLink>
+                  Trash
+                </NavigationLink>
+              </Link>
+          </NavigationWrapper>
+          <div>
+            {todosResponse.data.map((todo: ITodo) => (
+              <li key={todo._id}>{todo.title}</li>
+            ))}
+          </div>
+          <div>
+            {isSubmitting ? "Loading" : null}
+            <input
+              type="text"
+              placeholder="Type new todo here..."
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
+            />
+            <button onClick={(e) => createNewTodo(e)}>Create New Todo</button>
+          </div>
+          </NavigationContextProvider>
       </>
     );
   }
