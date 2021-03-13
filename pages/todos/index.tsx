@@ -66,23 +66,31 @@ export default function Home({ todosResponse }: IProps) {
           </HamburgerWrapper>
         </Navbar>
         <NavigationWrapper>
-          <NavigationLink>
-            <Link href="/">
+            <Link href="/" passHref>
+              <NavigationLink>
                 Hello
+              </NavigationLink>
             </Link>
-          </NavigationLink>
-          <NavigationLink>
-            <Link href="/inbox">Today</Link>
-          </NavigationLink>
-          <NavigationLink>
-            <Link href="/upcoming">Upcoming</Link>
-          </NavigationLink>
-          <NavigationLink>
-            <Link href="/anytime">Anytime</Link>
-          </NavigationLink>
-          <NavigationLink>
-            <Link href="/trash">Trash</Link>
-          </NavigationLink>
+            <Link href="/inbox">
+              <NavigationLink>
+                Inbox
+              </NavigationLink>
+            </Link>
+            <Link href="/upcoming">
+              <NavigationLink>
+                Upcoming
+              </NavigationLink>
+            </Link>
+            <Link href="/anytime">
+              <NavigationLink>
+                Anytime
+              </NavigationLink>
+            </Link>
+            <Link href="/trash">
+              <NavigationLink>
+                Trash
+              </NavigationLink>
+            </Link>
         </NavigationWrapper>
         <div>
           {todosResponse.data.map((todo: ITodo) => (
