@@ -1,8 +1,8 @@
-.active {
+.inactive {
   display: none;
 }
 
-.inactive {
+.active {
   background-color: #eee;
   display: flex;
   flex-direction: column;
