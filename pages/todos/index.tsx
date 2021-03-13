@@ -12,8 +12,13 @@ import HamburgerMenu from '../../components/HamburgerMenu';
 import NavigationWrapper from "../../components/NavigationWrapper";
 import NavigationLink from "../../components/NavigationLink";
 import NavigationContextProvider from '../../context/navigationContext';
+import Title from '../../components/Title'
+import TodosWrapper from '../../components/TodosWrapper'
+import Todo from '../../components/Todo'
 // typescript imports
 import { ITodo } from '../../models/Todo'
+import dbConnect from "../../database/dbConnect";
+import createTodo from "../../services/createTodo";
 
 interface IProps {
   todosResponse: {
@@ -32,16 +37,7 @@ export default function Home({ todosResponse }: IProps) {
     e.preventDefault();
     setNewTodo("");
     setIsSubmitting(true);
-    await fetch(`/api/todos`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: newTodo,
-      }),
-    }).catch((e) => console.log(e));
+    await createTodo(newTodo) 
     setIsSubmitting(false);
     router.push("/todos");
   }
@@ -96,21 +92,25 @@ export default function Home({ todosResponse }: IProps) {
                 </NavigationLink>
               </Link>
           </NavigationWrapper>
-          <div>
+          <Title>
+            Your Things Inbox
+          </Title>
+          <TodosWrapper>
             {todosResponse.data.map((todo: ITodo) => (
-              <li key={todo._id}>{todo.title}</li>
+              <Todo key={todo._id} title={todo.title}/>
             ))}
-          </div>
-          <div>
-            {isSubmitting ? "Loading" : null}
-            <input
-              type="text"
-              placeholder="Type new todo here..."
-              value={newTodo}
-              onChange={(e) => setNewTodo(e.target.value)}
-            />
-            <button onClick={(e) => createNewTodo(e)}>Create New Todo</button>
-          </div>
+            <div>
+              {isSubmitting ? "Loading" : null}
+              <input
+                type="text"
+                placeholder="Type new todo here..."
+                value={newTodo}
+                onChange={(e) => setNewTodo(e.target.value)}
+              />
+              <button onClick={(e) => createNewTodo(e)}>Create New Todo</button>
+            </div>
+          </TodosWrapper>
+        
           </NavigationContextProvider>
       </>
     );
@@ -118,6 +118,7 @@ export default function Home({ todosResponse }: IProps) {
 }
 
 export async function getServerSideProps() {
+  await dbConnect()
   const res = await fetch(`http://localhost:3000/api/todos`);
   const todos = await res.json();
   return {

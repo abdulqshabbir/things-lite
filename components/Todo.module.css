@@ -1,0 +1,31 @@
+.todoContainer {
+  display: flex;
+  margin: 20px auto;
+  min-height: 125px;
+  width: 80%;
+  position: relative;
+  background-color: #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 6px 7px 0px rgba(176, 163, 163, 0.75);
+}
+
+.todoContainer:hover {
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.todoCheckbox {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.todoTitle {
+  position: absolute;
+  font-size: 1.2rem;
+  top: 8px;
+  left: 30px;
+}
+
+.todoText {
+}
