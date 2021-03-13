@@ -1,16 +1,18 @@
+// library imports
 import fetch from "isomorphic-fetch";
+import { SyntheticEvent } from 'react'
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from 'next/link'
+// component imports
 import Navbar from "../../components/Navbar";
-
-import { SyntheticEvent } from 'react'
-import { ITodo } from '../../models/Todo'
 import NavbarBrand from "../../components/NavbarBrand";
 import HamburgerWrapper from '../../components/HamburgerWrapper'
 import HamburgerMenu from '../../components/HamburgerMenu';
 import NavigationWrapper from "../../components/NavigationWrapper";
 import NavigationLink from "../../components/NavigationLink";
-import Link from 'next/link'
+// typescript imports
+import { ITodo } from '../../models/Todo'
 
 interface IProps {
   todosResponse: {
