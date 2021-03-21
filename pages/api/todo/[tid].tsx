@@ -1,5 +1,11 @@
-import Todo from "../../../models/Todo";
+import Todo, { ITodo } from "../../../models/Todo";
 import { NextApiResponse, NextApiRequest } from 'next'
+
+export interface GetTodoResponse {
+  success: boolean,
+  message: string,
+  data: null | ITodo
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const todoId = req.query.tid;

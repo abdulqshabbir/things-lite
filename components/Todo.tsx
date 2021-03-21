@@ -1,15 +1,18 @@
+import { MouseEvent } from 'react'
 import styles from './Todo.module.css'
+import { useRouter } from 'next/router'
+import { ITodo } from '../models/Todo'
 
-interface ITodoProps {
-    title: string,
-    text?: string,
-    dueDate?: string,
-    priority?: string
-}
-
-const Todo = ({title, text}:ITodoProps) => {
+const Todo = ({title, text, _id }:ITodo) => {
+    const router = useRouter()
+    function handleClick(e: MouseEvent<HTMLDivElement>) {
+        router.push(`/todo/${_id}`)
+    }
     return(
-        <div className={`${styles.todoContainer}`}>
+        <div
+            className={`${styles.todoContainer}`}
+            onClick={handleClick}
+        >
             <input className={`${styles.todoCheckbox}`} type="checkbox" id="todo-checkbox" name="todo-checkbox"/>
             <div className={`${styles.todoTitle}`}>{title}</div>
             <div className={`${styles.todoText}`}>{text}</div>

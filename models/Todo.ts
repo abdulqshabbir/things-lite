@@ -1,10 +1,12 @@
 import mongoose, { Document } from "mongoose";
 
-export interface ITodo extends Document {
+export interface ITodo {
   title: string,
+  _id: string,
   text?: string,
   dueDate?: string,
   priority?: string,
+  id?: string
 }
 
 const todoSchema = new mongoose.Schema({

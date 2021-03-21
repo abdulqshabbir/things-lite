@@ -1,6 +1,6 @@
 // library imports
 import fetch from "isomorphic-fetch";
-import { SyntheticEvent } from 'react'
+import React, { ChangeEvent, SyntheticEvent } from 'react'
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from 'next/link'
@@ -42,6 +42,10 @@ export default function Home({ todosResponse }: IProps) {
     router.push("/todos");
   }
 
+  function viewTodoPage(tid: string) {
+    router.push(`/todo/${tid}`)
+  }
+
   if (!todosResponse.success || !todosResponse.data) {
     return (
       <div>
@@ -66,14 +70,14 @@ export default function Home({ todosResponse }: IProps) {
             </HamburgerWrapper>
           </Navbar>
           <NavigationWrapper>
-              <Link href="/" passHref>
-                <NavigationLink>
-                  Hello
-                </NavigationLink>
-              </Link>
-              <Link href="/inbox" passHref>
+              <Link href="/todos" passHref>
                 <NavigationLink>
                   Inbox
+                </NavigationLink>
+              </Link>
+              <Link href="/today" passHref>
+                <NavigationLink>
+                  Today
                 </NavigationLink>
               </Link>
               <Link href="/upcoming" passHref>
@@ -97,7 +101,11 @@ export default function Home({ todosResponse }: IProps) {
           </Title>
           <TodosWrapper>
             {todosResponse.data.map((todo: ITodo) => (
-              <Todo key={todo._id} title={todo.title}/>
+              <Todo
+                key={todo._id}
+                _id={todo._id}
+                title={todo.title}
+              />
             ))}
             <div>
               {isSubmitting ? "Loading" : null}
@@ -105,7 +113,7 @@ export default function Home({ todosResponse }: IProps) {
                 type="text"
                 placeholder="Type new todo here..."
                 value={newTodo}
-                onChange={(e) => setNewTodo(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setNewTodo(e.target.value)}
               />
               <button onClick={(e) => createNewTodo(e)}>Create New Todo</button>
             </div>
