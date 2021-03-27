@@ -25,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           res.status(400).json({
             success: true,
             data: todo,
+            message: ''
           });
         }
       } catch (e) {

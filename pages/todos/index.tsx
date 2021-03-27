@@ -4,6 +4,7 @@ import React, { ChangeEvent, SyntheticEvent } from 'react'
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from 'next/link'
+
 // component imports
 import Navbar from "../../components/Navbar";
 import NavbarBrand from "../../components/NavbarBrand";
@@ -15,6 +16,7 @@ import NavigationContextProvider from '../../context/navigationContext';
 import Title from '../../components/Title'
 import TodosWrapper from '../../components/TodosWrapper'
 import Todo from '../../components/Todo'
+
 // typescript imports
 import { ITodo } from '../../models/Todo'
 import dbConnect from "../../database/dbConnect";
@@ -96,6 +98,7 @@ export default function Home({ todosResponse }: IProps) {
                 </NavigationLink>
               </Link>
           </NavigationWrapper>
+          </NavigationContextProvider>
           <Title>
             Your Things Inbox
           </Title>
@@ -118,8 +121,6 @@ export default function Home({ todosResponse }: IProps) {
               <button onClick={(e) => createNewTodo(e)}>Create New Todo</button>
             </div>
           </TodosWrapper>
-        
-          </NavigationContextProvider>
       </>
     );
   }

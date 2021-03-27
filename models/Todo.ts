@@ -9,6 +9,15 @@ export interface ITodo {
   id?: string
 }
 
+interface ITodoDocument extends Document {
+  title: string,
+  _id: string,
+  text?: string,
+  dueDate?: string,
+  priority?: string,
+  id?: string
+}
+
 const todoSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -27,4 +36,4 @@ const todoSchema = new mongoose.Schema({
 });
 
 // if Todo model already exists, do not overwrite it and just return
-export default mongoose.models.Todo || mongoose.model<ITodo>("Todo", todoSchema);
+export default mongoose.models.Todo || mongoose.model<ITodoDocument>("Todo", todoSchema);
