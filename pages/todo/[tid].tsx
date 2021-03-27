@@ -1,4 +1,4 @@
-import  React, { useState, useEffect } from 'react'
+import  React, { useState, useEffect, MouseEvent } from 'react'
 import {GetServerSidePropsContext} from 'next'
 import { GetTodoResponse } from '../api/todo/[tid]'
 
@@ -15,6 +15,9 @@ import Link from 'next/link'
 // Component Imports
 import Label from '../../components/Label'
 import Input from '../../components/Input'
+import Container from '../../components/Container'
+import Title from '../../components/Title';
+import { Button, DangerButton } from '../../components/Button'
 
 interface IProps {
   todoResponse: GetTodoResponse
@@ -33,18 +36,21 @@ export default function Todo({ todoResponse }: IProps) {
     }
   }, [])
 
-  function handleTodoEdit() {
+  function handleTodoEdit(e: MouseEvent) {
+    e.preventDefault()
+    console.log(e.currentTarget)
   }
 
-  function handleTodoDelete() {
-
+  function handleTodoDelete(e: MouseEvent) {
+    e.preventDefault()
+    console.log(e)
   }
 
   if (!todoResponse.success) {
     return <p>Sorry we could not find the todo you were looking for.</p>;
   }
   return (
-    <div>
+    <>
        <NavigationContextProvider>
           <Navbar>
             <NavbarBrand>Things Lite</NavbarBrand>
@@ -80,27 +86,32 @@ export default function Todo({ todoResponse }: IProps) {
               </Link>
           </NavigationWrapper>
           </NavigationContextProvider>
-      <form>
-        <Label>
-          Title
-        </Label>
-        <Input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <Label>
-          Description
-        </Label>
-        <Input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button onClick={handleTodoEdit}>Save Changes</button>
-        <button onClick={handleTodoDelete}>Delete Todo</button>
-      </form>
-    </div>
+      <Container>
+        <Title>
+          Edit your Todo
+        </Title>
+        <form>
+          <Label>
+            Title:
+          </Label>
+          <Input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <Label>
+            Description:
+          </Label>
+          <Input
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <Button onClick={e => handleTodoEdit(e)}>Save Changes</Button>
+          <DangerButton onClick={e => handleTodoDelete(e)}>Delete Todo</DangerButton>
+        </form>
+      </Container>
+    </>
   );
 }
 

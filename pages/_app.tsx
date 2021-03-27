@@ -7,6 +7,9 @@ const theme = {
   secondaryDark: '#444',
   primaryLight: '#eee',
   secondaryLight: '#ddd',
+  buttonPrimary: 'rgb(108, 117, 125)',
+  buttonWarning: 'rgb(200, 35, 51)',
+  buttonSuccess: 'rgb(33, 136, 56)',
   fs_h1: '2.4rem',
   fs_h2: '1.6rem',
   fs_p: '1rem'
