@@ -6,5 +6,4 @@ export default styled.label`
     min-height: 25px;
     padding: 25px;
     display: block;
-    background-color: ${props => props.theme.primaryLight};
 `

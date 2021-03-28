@@ -5,10 +5,13 @@ Styling
 [ ] Adjust box-shadow and background-color for Todo container
 
 Frontend Functionality
-[ ] Click Todo to go to /todo/:tid page
-[ ] Create /todo/:tid page
-[ ] Display title, text, duedate that are all editable
-[ ] Delete button to remove todo from database
-[ ] Save button to save edits in database
+[x] Click Todo to go to /todo/:tid page
+[x] Create /todo/:tid page
+[x] Display title, text that all editable
+[ ] Clicking the "Save Changes" button should send PUT request to /api/todo/:tid and redirect to /todos
+[ ] Clicking "Delete Todo" button should send DELETE request to /api/todo/:tid and redirect to /todos
 
 Backend Functionality
+[ ] Create PUT route for /api/todo/:tid which takes
+{title: string, text: string, dueDate: Date} and updates todo in database
+[ ] Create DELETE route for /api/todo/:tid which takes

@@ -1,5 +1,3 @@
-import { ITodo } from "../models/Todo";
-
 export default async function createTodo(todoText: string) {
     await fetch(`/api/todos`, {
         method: "POST",

@@ -1,6 +1,7 @@
 import  React, { useState, useEffect, MouseEvent } from 'react'
 import {GetServerSidePropsContext} from 'next'
 import { GetTodoResponse } from '../api/todo/[tid]'
+import { useRouter } from 'next/router'
 
 // Navigation Imports
 import Navbar from "../../components/Navbar";
@@ -19,17 +20,23 @@ import Container from '../../components/Container'
 import Title from '../../components/Title';
 import { Button, DangerButton } from '../../components/Button'
 
+import deleteTodo from '../../services/deleteTodo'
+
 interface IProps {
   todoResponse: GetTodoResponse
 }
 
 export default function Todo({ todoResponse }: IProps) {
+  const router = useRouter()
   const [title, setTitle] = useState<string>('');
   const [text, setText] = useState<string>('');
+  const [id, setId] = useState<string>('');
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   useEffect(() => {
     if (todoResponse.data !== null) {
       setTitle(todoResponse.data.title)
+      setId(todoResponse.data._id)
       if (todoResponse.data.text) {
         setText(todoResponse.data.text)
       }
@@ -41,9 +48,11 @@ export default function Todo({ todoResponse }: IProps) {
     console.log(e.currentTarget)
   }
 
-  function handleTodoDelete(e: MouseEvent) {
+  async function handleTodoDelete(e: MouseEvent) {
     e.preventDefault()
-    console.log(e)
+    setIsDeleting(true)
+    await deleteTodo(id)
+    router.push('/todos')
   }
 
   if (!todoResponse.success) {

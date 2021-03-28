@@ -5,7 +5,6 @@ export interface ITodo {
   _id: string,
   text?: string,
   dueDate?: string,
-  priority?: string,
   id?: string
 }
 
@@ -14,7 +13,6 @@ interface ITodoDocument extends Document {
   _id: string,
   text?: string,
   dueDate?: string,
-  priority?: string,
   id?: string
 }
 
@@ -29,10 +27,7 @@ const todoSchema = new mongoose.Schema({
   },
   dueDate: {
     type: Date,
-  },
-  priority: {
-    type: String,
-  },
+  }
 });
 
 // if Todo model already exists, do not overwrite it and just return

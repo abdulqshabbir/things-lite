@@ -8,10 +8,15 @@ export default styled.input`
     min-height: 25px;
     box-sizing: border-box;
     display: block;
+    background-color: ${props => props.theme.primaryLight};
     border: 1px solid white;
     width: 100%;
 
     &:hover {
         border: 1px solid gray;
+    }
+
+    &:focus {
+        outline: none;
     }
 `

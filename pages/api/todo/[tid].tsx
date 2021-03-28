@@ -35,9 +35,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           .json({ 
             success: false,
             data: null,
-            message: "Something went wrong..."
+            message: "Could not get a todo with this id."
           });
       }
       break;
+      case "DELETE":
+        try {
+          await Todo.findByIdAndDelete(todoId)
+          res.status(200).json({
+            success: true,
+            data: null,
+            message: null
+          })
+          
+        } catch(e) {
+          console.log(e);
+          res.status(400).json({
+            success: false,
+            data: null,
+            message: "Could not delete todo."
+          })
+        }
   }
 }
