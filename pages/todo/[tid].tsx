@@ -20,7 +20,10 @@ import Container from '../../components/Container'
 import Title from '../../components/Title';
 import { Button, DangerButton } from '../../components/Button'
 
+// Services
 import deleteTodo from '../../services/deleteTodo'
+import updateTodo from '../../services/updateTodo'
+import { ITodo } from '../../models/Todo';
 
 interface IProps {
   todoResponse: GetTodoResponse
@@ -32,6 +35,7 @@ export default function Todo({ todoResponse }: IProps) {
   const [text, setText] = useState<string>('');
   const [id, setId] = useState<string>('');
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   useEffect(() => {
     if (todoResponse.data !== null) {
@@ -43,9 +47,21 @@ export default function Todo({ todoResponse }: IProps) {
     }
   }, [])
 
-  function handleTodoEdit(e: MouseEvent) {
+  async function handleTodoEdit(e: MouseEvent) {
+    debugger;
     e.preventDefault()
-    console.log(e.currentTarget)
+    setIsUpdating(true)
+    const updatedTodo: ITodo = createUpdatedTodo()
+    await updateTodo(updatedTodo)
+    router.push('/todos')
+  }
+
+  function createUpdatedTodo() {
+    return {
+      _id: id,
+      title,
+      text
+    }
   }
 
   async function handleTodoDelete(e: MouseEvent) {
@@ -60,7 +76,7 @@ export default function Todo({ todoResponse }: IProps) {
   }
   return (
     <>
-       <NavigationContextProvider>
+      <NavigationContextProvider>
           <Navbar>
             <NavbarBrand>Things Lite</NavbarBrand>
             <HamburgerWrapper>

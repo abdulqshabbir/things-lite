@@ -9,9 +9,9 @@ Frontend Functionality
 [x] Create /todo/:tid page
 [x] Display title, text that all editable
 [ ] Clicking the "Save Changes" button should send PUT request to /api/todo/:tid and redirect to /todos
-[ ] Clicking "Delete Todo" button should send DELETE request to /api/todo/:tid and redirect to /todos
+[x] Clicking "Delete Todo" button should send DELETE request to /api/todo/:tid and redirect to /todos
 
 Backend Functionality
-[ ] Create PUT route for /api/todo/:tid which takes
+[x] Create PUT route for /api/todo/:tid which takes
 {title: string, text: string, dueDate: Date} and updates todo in database
-[ ] Create DELETE route for /api/todo/:tid which takes
+[x] Create DELETE route for /api/todo/:tid which takes tid as query parameter and deletes todo from database

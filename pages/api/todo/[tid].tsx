@@ -56,5 +56,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             message: "Could not delete todo."
           })
         }
+      break;
+      case "PUT":
+        try {
+          const updatedTodo = req.body
+          updatedTodo._id = todoId
+          await Todo.findByIdAndUpdate(todoId, updatedTodo, { upsert: true})
+          res.status(200).json({
+            success: true,
+            data: updatedTodo,
+            message: null
+          })
+        } catch (e) {
+          console.log(e)
+          res.status(400).json({
+            success: false,
+            data: null,
+            message: "Could not update the todo."
+          })
+        }
+      break;
   }
 }
