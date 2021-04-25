@@ -1,7 +1,8 @@
 ## Todos for things-lite project
 
 Styling
-[ ] Adding loading icon for when saving new todos or deleting todos
+[ ] Add loading icon for saving todos
+[ ] Add spinning icon for deleting todos
 
 Frontend Functionality
 [x] Click Todo to go to /todo/:tid page
