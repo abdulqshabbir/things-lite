@@ -19,6 +19,7 @@ import Input from '../../components/Input'
 import Container from '../../components/Container'
 import Title from '../../components/Title';
 import { Button, DangerButton } from '../../components/Button'
+import Spinner from '../../components/Spinner'
 
 // Services
 import deleteTodo from '../../services/deleteTodo'
@@ -74,6 +75,7 @@ export default function Todo({ todoResponse }: IProps) {
   if (!todoResponse.success) {
     return <p>Sorry we could not find the todo you were looking for.</p>;
   }
+
   return (
     <>
       <NavigationContextProvider>
@@ -132,8 +134,19 @@ export default function Todo({ todoResponse }: IProps) {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <Button onClick={e => handleTodoEdit(e)}>Save Changes</Button>
-          <DangerButton onClick={e => handleTodoDelete(e)}>Delete Todo</DangerButton>
+          <Button onClick={e => handleTodoEdit(e)}>
+            {
+              isUpdating ?
+                <Spinner></Spinner> : 
+                'Save Changes'
+            }
+          </Button>
+          <DangerButton onClick={e => handleTodoDelete(e)}>
+            {
+              isDeleting ? 
+                <Spinner></Spinner> : 'Delete Todo'
+            }
+          </DangerButton>
         </form>
       </Container>
     </>

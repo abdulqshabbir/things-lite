@@ -111,7 +111,6 @@ export default function Home({ todosResponse }: IProps) {
               />
             ))}
             <div>
-              {isSubmitting ? "Loading" : null}
               <input
                 type="text"
                 placeholder="Type new todo here..."
