@@ -16,6 +16,9 @@ import NavigationContextProvider from '../../context/navigationContext';
 import Title from '../../components/Title'
 import TodosWrapper from '../../components/TodosWrapper'
 import Todo from '../../components/Todo'
+import Input from '../../components/Input'
+import { Button, InlineButton } from '../../components/Button'
+import Container from '../../components/Container'
 
 // typescript imports
 import { ITodo } from '../../models/Todo'
@@ -33,6 +36,7 @@ interface IProps {
 export default function Home({ todosResponse }: IProps) {
   const [newTodo, setNewTodo] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCreateTodoFormVisible, setIsCreateTodoFormVisible] = useState(false);
   const router = useRouter();
 
   async function createNewTodo(e: SyntheticEvent) {
@@ -47,6 +51,34 @@ export default function Home({ todosResponse }: IProps) {
   function viewTodoPage(tid: string) {
     router.push(`/todo/${tid}`)
   }
+
+  const CreateTodoForm = 
+  <Container>
+    <Input
+      placeholder="Type New Todo Here..."
+      value={newTodo}
+      onChange={ e => setNewTodo(e.target.value)}
+    >
+    </Input>
+    <InlineButton
+      onClick={e => createNewTodo(e)} 
+    >
+      Create New Todo
+    </InlineButton>
+    <InlineButton
+      onClick={e => setIsCreateTodoFormVisible(!isCreateTodoFormVisible)
+      } 
+    >
+      Cancel
+    </InlineButton>
+  </Container>
+
+  const AddTodoButton = 
+  <Container>
+    <Button onClick={() => setIsCreateTodoFormVisible(!isCreateTodoFormVisible)}>
+      Add New Todo
+    </Button>
+  </Container>
 
   if (!todosResponse.success || !todosResponse.data) {
     return (
@@ -102,6 +134,9 @@ export default function Home({ todosResponse }: IProps) {
           <Title>
             Your Things Inbox
           </Title>
+          
+          {isCreateTodoFormVisible ? CreateTodoForm : AddTodoButton}
+          
           <TodosWrapper>
             {todosResponse.data.map((todo: ITodo) => (
               <Todo
@@ -110,15 +145,7 @@ export default function Home({ todosResponse }: IProps) {
                 title={todo.title}
               />
             ))}
-            <div>
-              <input
-                type="text"
-                placeholder="Type new todo here..."
-                value={newTodo}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setNewTodo(e.target.value)}
-              />
-              <button onClick={(e) => createNewTodo(e)}>Create New Todo</button>
-            </div>
+ 
           </TodosWrapper>
       </>
     );

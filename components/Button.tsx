@@ -17,6 +17,12 @@ export const Button = styled.button`
     }
 `
 
+export const InlineButton = styled(Button)`
+    display: inline-block !important;
+    width: 40% !important;
+    margin-left: 5% !important;
+`
+
 export const DangerButton = styled(Button)`
     background-color: ${props => props.theme.buttonWarning};
 `
