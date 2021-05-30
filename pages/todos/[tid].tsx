@@ -1,6 +1,6 @@
 import  React, { useState, useEffect, MouseEvent } from 'react'
 import {GetServerSidePropsContext} from 'next'
-import { GetTodoResponse } from '../api/todo/[tid]'
+import { ITodoResponse } from '../../models/Todo'
 import { useRouter } from 'next/router'
 
 // Navigation Imports
@@ -27,7 +27,7 @@ import updateTodo from '../../services/updateTodo'
 import { ITodo } from '../../models/Todo';
 
 interface IProps {
-  todoResponse: GetTodoResponse
+  todoResponse: ITodoResponse
 }
 
 export default function Todo({ todoResponse }: IProps) {
@@ -49,7 +49,6 @@ export default function Todo({ todoResponse }: IProps) {
   }, [])
 
   async function handleTodoEdit(e: MouseEvent) {
-    debugger;
     e.preventDefault()
     setIsUpdating(true)
     const updatedTodo: ITodo = createUpdatedTodo()
@@ -155,7 +154,7 @@ export default function Todo({ todoResponse }: IProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const todoId = context.query.tid;
-  const res = await fetch(`http://localhost:3000/api/todo/${todoId}`);
+  const res = await fetch(`http://localhost:3000/api/todos/${todoId}`);
   const todoResponse = await res.json();
   return {
     props: {

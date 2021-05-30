@@ -1,7 +1,7 @@
 import { ITodo } from '../models/Todo'
 
 export default async function updateTodo(updatedTodo: ITodo) {
-    await fetch(`/api/todo/${updatedTodo._id}`, {
+    await fetch(`/api/todos/${updatedTodo._id}`, {
         method: "PUT",
         headers: {
             Accept: "application/json",

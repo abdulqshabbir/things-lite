@@ -1,5 +1,5 @@
 export default async function deleteTodo(todoId: string) {
-    await fetch(`/api/todo/${todoId}`, {
+    await fetch(`/api/todos/${todoId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",

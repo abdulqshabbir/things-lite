@@ -16,6 +16,12 @@ interface ITodoDocument extends Document {
   id?: string
 }
 
+export interface ITodoResponse {
+  message: null | string,
+  data: null | ITodo,
+  success: boolean
+}
+
 const todoSchema = new mongoose.Schema({
   title: {
     type: String,

@@ -6,7 +6,7 @@ import { ITodo } from '../models/Todo'
 const Todo = ({title, text, _id }:ITodo) => {
     const router = useRouter()
     function handleClick(e: MouseEvent<HTMLDivElement>) {
-        router.push(`/todo/${_id}`)
+        router.push(`/todos/${_id}`)
     }
     return(
         <div
