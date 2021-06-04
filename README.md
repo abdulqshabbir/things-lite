@@ -1,13 +1,16 @@
 ## Todos for things-lite project
 
 Add ability to Tag todos
-[ ] Allow a drop-down selection for tagging
-[ ] Allow "Today", "Upcoming", "Someday" and null as four options
+[x] Allow a drop-down selection for tagging
+[ ] Allow "Today", "Upcoming", "Someday" and "Inbox" as four options
 [ ] By default, options tagged null will be in inbox
 [ ] Add tag field to database model
 [ ] Modify the updateTodoService function to now accept PUT requests to /todos/[tid] to update tags
 [ ] When rendering todos on /todos we need to filter and display todos only with null tags
 [ ] When rendering todos on /today or /upcoming or /someday render appropiate todos
+
+Refactor some code
+[ ]
 
 Implement Google OAuth
 [ ] Create Google Sign-in button
